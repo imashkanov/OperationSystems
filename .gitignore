@@ -14,3 +14,5 @@ Release
 ipch
 *sdf
 *.exe
+*.vcxproj.filters
+*.vcxproj.user
