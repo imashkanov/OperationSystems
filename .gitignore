@@ -13,3 +13,4 @@ Release
 *.vbproj.user
 ipch
 *sdf
+*.exe
