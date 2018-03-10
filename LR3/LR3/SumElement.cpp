@@ -7,7 +7,8 @@ using namespace std;
 DWORD WINAPI SumElementExecute(LPVOID param) {
   //получаем указатель на структуру, преобразовывая его из обобщенного типа в конкретный
   structArr* s = (structArr*)param;
-
+  //войти в крит секцию .........
+  EnterCriticalSection(&s->csArr);
   cout << "----sum: wait for sumAllowed event.." << endl;
   WaitForSingleObject(s->sumAllowed,  INFINITE);
   cout << "----sum: ...event sumAllowed, now start calculate sum" << endl;
@@ -18,8 +19,9 @@ DWORD WINAPI SumElementExecute(LPVOID param) {
   }
 
   cout << "----sum: calculate sum complete" << endl;
-
+  
   //устанавливаем событие и выходим
+  LeaveCriticalSection(&s->csArr);
   SetEvent(s->sumComplete);
   cout << "----sum: Set event, done, exit" << endl;
   return 0;
